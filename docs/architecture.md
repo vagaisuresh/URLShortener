@@ -117,3 +117,22 @@ A clean, layered .NET Minimal API project using Domain-Driven Design (DDD), CQRS
 ├── URLShortener.sln           # 🔗 Visual Studio solution file
 └── README.md                  # 📘 Entry-point project description
 ```
+
+```
+MS SQL Server
+---
+CREATE TABLE ShortUrls (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    LongUrl TEXT NOT NULL,
+    ShortId VARCHAR(10) NOT NULL,
+    Domain VARCHAR(255) NOT NULL,
+    ShortUrlValue VARCHAR(255) NOT NULL,
+    Description NVARCHAR(255),
+    ExpireAtDateTime DATETIME,
+    ExpireAtViews INT,
+    PublicStats BIT,
+    HasPassword BIT NOT NULL,
+    CreatedAtDateTime DATETIME,
+    UpdatedAtDateTime DATETIME
+);
+```
