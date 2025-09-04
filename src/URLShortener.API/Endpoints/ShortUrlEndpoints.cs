@@ -14,6 +14,9 @@ public static class ShortUrlEndpoints
         app.MapGet("/short-urls/{id}", async (int id, [FromServices] IShortUrlService service)
             => await service.GetShortUrlAsync(id));
 
+        app.MapGet("/short-urls/short-id/{shortId}", async (string shortId, [FromServices] IShortUrlService service)
+            => await service.GetShortUrlByShortIdAsync(shortId));
+        
         app.MapPost("/short-urls", async ([FromBody] ShortUrlRequest shortUrlResponse, [FromServices] IShortUrlService service)
             => await service.CreateShortUrlAsync(shortUrlResponse));
 

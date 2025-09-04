@@ -20,21 +20,29 @@ public class ShortUrlService : IShortUrlService
     public async Task<IResult> GetShortUrlsAsync()
     {
         var shortUrls = await _context.ShortUrls.ToListAsync();
-
         return Results.Ok(shortUrls);
     }
 
     public async Task<IResult> GetShortUrlAsync(int id)
     {
         var shortUrl = await _context.ShortUrls.FindAsync(id);
+        return Results.Ok(shortUrl);
+    }
 
+    public async Task<IResult> GetShortUrlByShortIdAsync(string shortId)
+    {
+        var shortUrl = await _context.ShortUrls.FirstOrDefaultAsync(x => x.ShortId == shortId);
+
+        if (shortUrl == null)
+            return Results.NotFound("Requested short URL not found.");
+        
         return Results.Ok(shortUrl);
     }
 
     public async Task<IResult> CreateShortUrlAsync(ShortUrlRequest shortUrlRequest)
     {
-        var domain = "https://tiaano.com";                         // Example domain, replace with actual logic
-        var shortId = _shortIdGenerator.Generate(5);                // Generate a random short ID with 5 characters (custom generator)
+        var domain = "https://tiaano.com";              // Example domain, replace with actual logic
+        var shortId = _shortIdGenerator.Generate(5);    // Generate a random short ID with 5 characters (custom generator)
 
         var shortUrl = new ShortUrl
         {
@@ -51,7 +59,7 @@ public class ShortUrlService : IShortUrlService
             CreatedAtDateTime = DateTime.UtcNow,
             UpdatedAtDateTime = new DateTime(1900, 1, 1)
         };
-        
+
         await _context.ShortUrls.AddAsync(shortUrl);
         await _context.SaveChangesAsync();
 
