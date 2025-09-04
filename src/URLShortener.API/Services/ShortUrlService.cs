@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using URLShortener.API.Context;
 using URLShortener.API.DataTransferObjects;
 using URLShortener.API.Interfaces;
@@ -9,14 +10,14 @@ namespace URLShortener.API.Services;
 public class ShortUrlService : IShortUrlService
 {
     private readonly AppDbContext _context;
-    private readonly ShortUrlSettings _shortUrlSettings;
     private readonly IShortIdGenerator _shortIdGenerator;
+    private readonly ShortUrlSettings _settings;
 
-    public ShortUrlService(AppDbContext context, ShortUrlSettings shortUrlSettings, IShortIdGenerator shortIdGenerator)
+    public ShortUrlService(AppDbContext context, IShortIdGenerator shortIdGenerator, IOptions<ShortUrlSettings> options)
     {
         _context = context;
-        _shortUrlSettings = shortUrlSettings;
         _shortIdGenerator = shortIdGenerator;
+        _settings = options.Value;
     }
 
     public async Task<IResult> GetShortUrlsAsync()
@@ -54,7 +55,7 @@ public class ShortUrlService : IShortUrlService
 
     public async Task<IResult> CreateShortUrlAsync(ShortUrlRequest shortUrlRequest)
     {
-        var domain = _shortUrlSettings.Domain;          // Domain, fetch from appsettings
+        var domain = _settings.Domain;                  // Domain, fetch from appsettings
         var shortId = _shortIdGenerator.Generate(5);    // Generate a random short ID with 5 characters (custom generator)
 
         var shortUrl = new ShortUrl
