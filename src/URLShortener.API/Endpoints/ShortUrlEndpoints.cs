@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using URLShortener.API.DTOs;
+using URLShortener.API.DataTransferObjects;
 using URLShortener.API.Interfaces;
 
 namespace URLShortener.API.Endpoints;
