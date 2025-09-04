@@ -9,11 +9,13 @@ namespace URLShortener.API.Services;
 public class ShortUrlService : IShortUrlService
 {
     private readonly AppDbContext _context;
+    private readonly ShortUrlSettings _shortUrlSettings;
     private readonly IShortIdGenerator _shortIdGenerator;
 
-    public ShortUrlService(AppDbContext context, IShortIdGenerator shortIdGenerator)
+    public ShortUrlService(AppDbContext context, ShortUrlSettings shortUrlSettings, IShortIdGenerator shortIdGenerator)
     {
         _context = context;
+        _shortUrlSettings = shortUrlSettings;
         _shortIdGenerator = shortIdGenerator;
     }
 
@@ -31,17 +33,28 @@ public class ShortUrlService : IShortUrlService
 
     public async Task<IResult> GetShortUrlByShortIdAsync(string shortId)
     {
-        var shortUrl = await _context.ShortUrls.FirstOrDefaultAsync(x => x.ShortId == shortId);
+        var shortUrl = await _context.ShortUrls
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.ShortId == shortId);
 
         if (shortUrl == null)
             return Results.NotFound("Requested short URL not found.");
-        
-        return Results.Ok(shortUrl);
+
+        var shortUrlResponseDto = new ShortUrlResponseDto
+        {
+            Id = shortUrl.Id,
+            LongUrl = shortUrl.LongUrl,
+            ShortUrlValue = shortUrl.ShortUrlValue,
+            Description = shortUrl.Description,
+            CreatedAtDateTime = shortUrl.CreatedAtDateTime
+        };
+
+        return Results.Ok(shortUrlResponseDto);
     }
 
     public async Task<IResult> CreateShortUrlAsync(ShortUrlRequest shortUrlRequest)
     {
-        var domain = "https://tiaano.com";              // Example domain, replace with actual logic
+        var domain = _shortUrlSettings.Domain;          // Domain, fetch from appsettings
         var shortId = _shortIdGenerator.Generate(5);    // Generate a random short ID with 5 characters (custom generator)
 
         var shortUrl = new ShortUrl

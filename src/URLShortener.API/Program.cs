@@ -3,6 +3,7 @@ using URLShortener.API.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddShortUrlSettings(builder.Configuration);
 builder.Services.AddAppDbContext();
 builder.Services.AddApplicationServices();
 
