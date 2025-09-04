@@ -1,10 +1,10 @@
-using URLShortener.API.DIs;
+using URLShortener.API.DependencyInjection;
 using URLShortener.API.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigureSqlContext();
-builder.Services.ConfigureToBindDependencies();
+builder.Services.AddAppDbContext();
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 

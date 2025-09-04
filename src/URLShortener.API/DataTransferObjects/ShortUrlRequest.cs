@@ -1,3 +1,3 @@
-namespace URLShortener.API.DTOs;
+namespace URLShortener.API.DataTransferObjects;
 
 public record ShortUrlRequest(string? LongUrl, string? Description, bool HasPassword);

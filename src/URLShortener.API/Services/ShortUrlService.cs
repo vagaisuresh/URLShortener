@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using URLShortener.API.Context;
-using URLShortener.API.DTOs;
+using URLShortener.API.DataTransferObjects;
 using URLShortener.API.Interfaces;
 using URLShortener.API.Models;
 

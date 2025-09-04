@@ -1,4 +1,4 @@
-using URLShortener.API.DTOs;
+using URLShortener.API.DataTransferObjects;
 
 namespace URLShortener.API.Interfaces;
 
