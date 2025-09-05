@@ -1,0 +1,33 @@
+@using URLShortener.Blazor.DataTransferObjects
+
+@if (shortUrls != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Short URL</th>
+                <th>Long URL</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var shortUrl in shortUrls)
+            {
+                <tr>
+                    <td>@shortUrl.ShortUrlValue</td>
+                    <td>@shortUrl.LongUrl</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p><em>Short URL not found.</em></p>
+}
+
+@code {
+    [Parameter]
+    public List<ShortUrlDto> shortUrls { get; set; } = new List<ShortUrlDto>();
+}

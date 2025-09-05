@@ -1,0 +1,30 @@
+@using URLShortener.Blazor.DataTransferObjects
+
+<EditForm Model="@shortUrlDto" OnValidSubmit="@GenerateShortURL">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label for="longurl" class="form-label">Long URL</label>
+        <div class="input-group">
+            <InputText id="longurl" class="form-control" @bind-Value="shortUrlDto.LongUrl" />
+            <button type="submit" class="btn btn-primary">Generate Short URL</button>
+        </div>
+        <ValidationMessage For="@(() => shortUrlDto.LongUrl)" />
+    </div>
+</EditForm>
+
+@code {
+    private ShortUrlDto shortUrlDto = new();
+
+    [Parameter]
+    public EventCallback<ShortUrlDto> OnGenerate { get; set; }
+
+    private async Task GenerateShortURL()
+    {
+        if (!string.IsNullOrWhiteSpace(shortUrlDto.LongUrl))
+        {
+            shortUrlDto.Id = 0;
+            await OnGenerate.InvokeAsync(shortUrlDto);
+            shortUrlDto = new();
+        }
+    }
+}
