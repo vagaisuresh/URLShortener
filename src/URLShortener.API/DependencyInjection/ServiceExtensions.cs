@@ -15,7 +15,7 @@ public static class ServiceExtensions
         {
             options.AddPolicy("BlazorCorsPolicy", builder =>
             {
-                builder.WithOrigins("http://localhost:5284")
+                builder.WithOrigins("http://localhost:5284", "http://localhost:5262")
                        .AllowAnyHeader()
                        .AllowAnyMethod();
             });

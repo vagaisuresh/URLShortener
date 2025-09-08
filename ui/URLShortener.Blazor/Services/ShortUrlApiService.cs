@@ -10,9 +10,14 @@ public class ShortUrlApiService : IShortUrlApiService
 
     public ShortUrlApiService(HttpClient http) => _http = http;
 
-    public Task<List<ShortUrlDto>> GetAllAsync()
+    public async Task<IEnumerable<ShortUrlDto>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var response = await _http.GetFromJsonAsync<IEnumerable<ShortUrlDto>>("short-urls");
+
+        if (response == null)
+            throw new ApplicationException("Failed to fetch short url. the response was null.");
+
+        return response;
     }
 
     public Task<ShortUrlDto> GetByIdAsync(string id)
@@ -22,7 +27,7 @@ public class ShortUrlApiService : IShortUrlApiService
 
     public async Task<ShortUrlDto> CreateAsync(ShortUrlDto dto)
     {
-        var response = await _http.PostAsJsonAsync("api/short-urls", dto);
+        var response = await _http.PostAsJsonAsync("short-urls", dto);
         response.EnsureSuccessStatusCode();
         var result = await response.Content.ReadFromJsonAsync<ShortUrlDto>();
         return result!;
