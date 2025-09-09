@@ -1,0 +1,32 @@
+﻿@page "/"
+@using URLShortener.Blazor.DataTransferObjects
+@using URLShortener.Blazor.Pages.ShortUrl
+@using URLShortener.Blazor.Services.Interfaces
+
+<PageTitle>Short URL</PageTitle>
+
+<h1>Short URL</h1>
+
+<ShortUrlForm 
+    OnGenerate="GenerateShortURLAsync">
+</ShortUrlForm>
+
+<ShortUrlTable 
+    shortUrls="@shortUrlDtos">
+</ShortUrlTable>
+
+@code {
+    private List<ShortUrlDto> shortUrlDtos = new();
+    
+    [Inject]
+    public IShortUrlApiService ShortUrlApiService { get; set; } = default!;
+    
+    private async Task GenerateShortURLAsync(ShortUrlDto shortUrlDto)
+    {
+        if (ShortUrlApiService != null)
+        {
+            var shortUrl = await ShortUrlApiService.CreateAsync(shortUrlDto);
+            shortUrlDtos.Add(shortUrl);
+        }
+    }
+}
