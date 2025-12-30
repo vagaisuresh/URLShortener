@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E27954B4-CEC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLShortener.API", "src\URLShortener.API\URLShortener.API.csproj", "{60652BF2-6772-4758-A6CE-C8A246319E6E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ui", "ui", "{FAD0B866-FEDB-4061-8545-6E2BB4FB8411}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ui", "ui", "{BC16E10C-6049-49F5-9E84-85704AFF1B23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLShortener.Blazor", "ui\URLShortener.Blazor\URLShortener.Blazor.csproj", "{7DCB6009-B7D2-4E17-BF4E-E9D5CF781F3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLShortener.Blazor", "ui\URLShortener.Blazor\URLShortener.Blazor.csproj", "{E9A6968E-84AD-4D01-919A-DD4F0ED4F8A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,16 +21,16 @@ Global
 		{60652BF2-6772-4758-A6CE-C8A246319E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60652BF2-6772-4758-A6CE-C8A246319E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60652BF2-6772-4758-A6CE-C8A246319E6E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7DCB6009-B7D2-4E17-BF4E-E9D5CF781F3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7DCB6009-B7D2-4E17-BF4E-E9D5CF781F3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7DCB6009-B7D2-4E17-BF4E-E9D5CF781F3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7DCB6009-B7D2-4E17-BF4E-E9D5CF781F3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9A6968E-84AD-4D01-919A-DD4F0ED4F8A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9A6968E-84AD-4D01-919A-DD4F0ED4F8A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9A6968E-84AD-4D01-919A-DD4F0ED4F8A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9A6968E-84AD-4D01-919A-DD4F0ED4F8A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{60652BF2-6772-4758-A6CE-C8A246319E6E} = {E27954B4-CECF-4055-B1DE-E92D46C336DB}
-		{7DCB6009-B7D2-4E17-BF4E-E9D5CF781F3F} = {FAD0B866-FEDB-4061-8545-6E2BB4FB8411}
+		{E9A6968E-84AD-4D01-919A-DD4F0ED4F8A4} = {BC16E10C-6049-49F5-9E84-85704AFF1B23}
 	EndGlobalSection
 EndGlobal
