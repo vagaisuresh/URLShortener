@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using URLShortener.API.Context;
 using URLShortener.API.DataTransferObjects;
+using URLShortener.API.Domain.Entities;
 using URLShortener.API.Interfaces;
-using URLShortener.API.Models;
+using URLShortener.API.Persistence.Context;
 
 namespace URLShortener.API.Services;
 
