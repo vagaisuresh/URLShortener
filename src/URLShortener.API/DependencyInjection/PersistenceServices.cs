@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using URLShortener.API.Context;
+using URLShortener.API.Persistence.Context;
 
 namespace URLShortener.API.DependencyInjection;
 

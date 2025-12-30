@@ -1,16 +1,16 @@
-namespace URLShortener.API.Models;
+namespace URLShortener.API.Domain.Entities;
 
 public class ShortUrl
 {
     public int Id { get; set; }
 
-    public string LongUrl { get; set; } = string.Empty;
+    public required string LongUrl { get; set; }
 
-    public string ShortId { get; set; } = string.Empty;
+    public required string ShortId { get; set; }
 
-    public string Domain { get; set; } = string.Empty;
+    public required string Domain { get; set; }
 
-    public string ShortUrlValue { get; set; } = string.Empty;
+    public required string ShortUrlValue { get; set; }
 
     public string? Description { get; set; }
 
