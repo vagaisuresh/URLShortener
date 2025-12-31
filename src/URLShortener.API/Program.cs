@@ -1,5 +1,5 @@
 using URLShortener.API.DependencyInjection;
-using URLShortener.API.Endpoints;
+using URLShortener.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +12,6 @@ var app = builder.Build();
 
 app.UseCors("BlazorCorsPolicy");
 
-app.MapShortUrlEndpoints();
+app.MapAllEndpoints();
 
 app.Run();

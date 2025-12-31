@@ -1,4 +1,5 @@
-using URLShortener.API.Interfaces;
+using URLShortener.API.Application.Interfaces;
+using URLShortener.API.Application.Services;
 using URLShortener.API.Services;
 using URLShortener.API.Utilities;
 
@@ -10,5 +11,7 @@ public static class ApplicationServices
     {
         services.AddSingleton<IShortIdGenerator, ShortIdGenerator>();
         services.AddScoped<IShortUrlService, ShortUrlService>();
+
+        services.AddScoped<IRoleService, RoleService>();
     }
 }
