@@ -1,4 +1,4 @@
-﻿using URLShortener.API.Interfaces;
+﻿using URLShortener.API.Application.Interfaces;
 
 namespace URLShortener.API.Utilities
 {

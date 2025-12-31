@@ -1,5 +1,8 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace URLShortener.API.Domain.Entities;
 
+[Table("User")]
 public class User
 {
     public int Id { get; set; }
@@ -11,6 +14,7 @@ public class User
     public DateTime DateOfBirth { get; set; }
     public string? ProfilePicture { get; set; }
     public bool IsActive { get; set; }
-    public bool IsRemoved { get; set; }
-    public DateTime CreatedDate { get; set; }
+    public bool IsDeleted { get; set; }
+    public short CreatedBy { get; set; }
+    public DateTime CreatedAt { get; set; }
 }

@@ -6,7 +6,7 @@ public class RoleSaveDto
 {
     [Required]
     [StringLength(50)]
-    public string? RoleName { get; set; }
+    public string Name { get; set; } = null!;
 
     [Required]
     [StringLength(100)]
