@@ -24,7 +24,7 @@ public class RoleService : IRoleService
         var roleDtos = roles.Select(x => new RoleDto
         {
             Id = x.Id,
-            RoleName = x.RoleName,
+            Name = x.Name,
             Description = x.Description,
             IsActive = x.IsActive
         }).ToList();
@@ -44,7 +44,7 @@ public class RoleService : IRoleService
         return new RoleDto
         {
             Id = role.Id,
-            RoleName = role.RoleName,
+            Name = role.Name,
             Description = role.Description,
             IsActive = role.IsActive
         };
@@ -52,12 +52,18 @@ public class RoleService : IRoleService
 
     public async Task<RoleDto> CreateAsync(RoleSaveDto roleSaveDto)
     {
+        if (await _context.Roles.AnyAsync(e => e.Name == roleSaveDto.Name))
+            throw new InvalidOperationException("Role name already exists.");
+
+        // CREATE UNIQUE INDEX IX_Role_Name ON Role(Name);
+        // This guarantees no duplicates, even if multiple services or apps write to the table.
+        
         var role = new Role
         {
-            RoleName = roleSaveDto.RoleName,
+            Name = roleSaveDto.Name,
             Description = roleSaveDto.Description,
             IsActive = roleSaveDto.IsActive,
-            IsRemoved = false
+            IsDeleted = false
         };
 
         await _context.Roles.AddAsync(role);
@@ -66,7 +72,7 @@ public class RoleService : IRoleService
         return new RoleDto
         {
             Id = role.Id,
-            RoleName = role.RoleName,
+            Name = role.Name,
             Description = role.Description,
             IsActive = role.IsActive
         };
@@ -74,12 +80,15 @@ public class RoleService : IRoleService
 
     public async Task<bool> UpdateAsync(short id, RoleSaveDto roleSaveDto)
     {
+        if (await _context.Roles.AnyAsync(e => e.Name == roleSaveDto.Name && e.Id != id))
+            throw new InvalidOperationException("Role name already exists.");
+
         var existingRole = await _context.Roles.FindAsync(id);
 
         if (existingRole is null)
             return false;
         
-        existingRole.RoleName = roleSaveDto.RoleName;
+        existingRole.Name = roleSaveDto.Name;
         existingRole.Description = roleSaveDto.Description;
         existingRole.IsActive = roleSaveDto.IsActive;
 

@@ -32,10 +32,16 @@ public static class RoleEndpoints
 
             if (!Validator.TryValidateObject(roleSaveDto, validationContext, validationResults, true))
                 return Results.BadRequest("Invalid model received.");
-
-            var roleDto = await service.CreateAsync(roleSaveDto);
-
-            return Results.CreatedAtRoute("GetRoleById", new { id = roleDto.Id }, roleDto);
+            
+            try
+            {
+                var roleDto = await service.CreateAsync(roleSaveDto);
+                return Results.CreatedAtRoute("GetRoleById", new { id = roleDto.Id }, roleDto);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Results.BadRequest(new { error = ex.Message });
+            }
         });
 
         app.MapPut("/roles/{id}", async (short id, [FromBody] RoleSaveDto roleSaveDto, [FromServices] IRoleService service) =>
@@ -43,8 +49,15 @@ public static class RoleEndpoints
             if (id <= 0)
                 return Results.BadRequest("Invalid id provided.");
 
-            bool updated = await service.UpdateAsync(id, roleSaveDto);
-            return updated ? Results.NoContent() : Results.NotFound();
+            try
+            {
+                bool updated = await service.UpdateAsync(id, roleSaveDto);
+                return updated ? Results.NoContent() : Results.NotFound();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Results.BadRequest(new { error = ex.Message });
+            }
         });
 
         app.MapDelete("/roles/{id}", async (short id, [FromServices] IRoleService service) =>
