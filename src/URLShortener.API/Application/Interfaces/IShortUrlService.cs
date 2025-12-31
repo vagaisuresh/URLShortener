@@ -1,6 +1,6 @@
 using URLShortener.API.DataTransferObjects;
 
-namespace URLShortener.API.Interfaces;
+namespace URLShortener.API.Application.Interfaces;
 
 public interface IShortUrlService
 {
