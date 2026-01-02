@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace URLShortener.API.DataTransferObjects;
 
-public class UserForSaveDto
+public class UserRegisterDto
 {
     [Required]
     [StringLength(50)]
@@ -12,7 +12,9 @@ public class UserForSaveDto
     [StringLength(100)]
     public string EmailAddress { get; set; } = null!;
 
-    public short RoleId { get; set; }
+    [Required]
+    [StringLength(16, MinimumLength = 8)]
+    public string Password { get; set; } = null!;
 
     [Required]
     [StringLength(15)]
@@ -22,6 +24,7 @@ public class UserForSaveDto
 
     [StringLength(50)]
     public string? ProfilePicture { get; set; }
-    
-    public bool IsActive { get; set; }
 }
+
+// Registration Form
+// Customer registration via portal (Role: Customer)
