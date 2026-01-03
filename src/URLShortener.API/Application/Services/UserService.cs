@@ -36,7 +36,7 @@ public class UserService : IUserService
         return userDtos;
     }
 
-    public async Task<UserDto?> GetByIdAsync(short id)
+    public async Task<UserDto?> GetByIdAsync(int id)
     {
         var user = await _context.Users
             .AsNoTracking()
@@ -68,13 +68,13 @@ public class UserService : IUserService
             FullName = userRegisterDto.FullName,
             EmailAddress = userRegisterDto.FullName,
             PasswordHash = userRegisterDto.Password,
-            RoleId = 3,                                         // Customer - directly assigned
+            RoleId = Convert.ToInt16(3),                                         // Customer - directly assigned
             MobileNumber = userRegisterDto.MobileNumber,
             DateOfBirth = userRegisterDto.DateOfBirth,
             ProfilePicture = userRegisterDto.ProfilePicture,
             IsActive = true,
             IsDeleted = false,
-            CreatedBy = 0,
+            CreatedBy = Convert.ToInt16(0),
             CreatedAt = DateTime.UtcNow
         };
 
@@ -94,13 +94,31 @@ public class UserService : IUserService
         };
     }
 
-    public Task<bool> UpdateAsync(short id, UserUpdateDto userUpdateDto)
+    public async Task<bool> UpdateAsync(int id, UserUpdateDto userUpdateDto)
     {
-        throw new NotImplementedException();
+        var exisingUser = await _context.Users.FindAsync(id);
+
+        if (exisingUser is null)
+            throw new InvalidOperationException("Requested user not found.");
+        
+        exisingUser.FullName = userUpdateDto.FullName;
+        exisingUser.MobileNumber = userUpdateDto.MobileNumber;
+        exisingUser.DateOfBirth = userUpdateDto.DateOfBirth;
+
+        _context.Users.Update(exisingUser);
+        await _context.SaveChangesAsync();
+        return true;
     }
 
-    public Task<bool> DeleteAsync(short id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var exisingUser = await _context.Users.FindAsync(id);
+
+        if (exisingUser is null)
+            throw new InvalidOperationException("Requested user not found.");
+        
+        _context.Users.Remove(exisingUser);
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

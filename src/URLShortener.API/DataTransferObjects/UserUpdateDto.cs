@@ -13,7 +13,4 @@ public class UserUpdateDto
     public string MobileNumber { get; set; } = null!;
 
     public DateTime DateOfBirth { get; set; }
-
-    [StringLength(50)]
-    public string? ProfilePicture { get; set; }
 }
