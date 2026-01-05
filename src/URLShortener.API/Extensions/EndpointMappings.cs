@@ -6,7 +6,9 @@ public static class EndpointMappings
 {
     public static void MapAllEndpoints(this IEndpointRouteBuilder app)
     {
+        app.MapAuthEndpoints();
         app.MapRoleEndpoints();
+        app.MapUserEndpoints();
         app.MapShortUrlEndpoints();
     }
 }

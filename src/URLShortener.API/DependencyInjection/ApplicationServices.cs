@@ -1,7 +1,6 @@
 using URLShortener.API.Application.Interfaces;
 using URLShortener.API.Application.Services;
-using URLShortener.API.Services;
-using URLShortener.API.Utilities;
+using URLShortener.API.Application.Utilities;
 
 namespace URLShortener.API.DependencyInjection;
 
@@ -13,5 +12,8 @@ public static class ApplicationServices
         services.AddScoped<IShortUrlService, ShortUrlService>();
 
         services.AddScoped<IRoleService, RoleService>();
+        services.AddScoped<IUserService, UserService>();
+
+        services.AddScoped<IAuthService, AuthService>();
     }
 }

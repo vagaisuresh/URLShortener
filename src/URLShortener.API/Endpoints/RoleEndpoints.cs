@@ -9,13 +9,15 @@ public static class RoleEndpoints
 {
     public static void MapRoleEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/roles", async ([FromServices] IRoleService service) =>
+        var securedApi = app.MapGroup("/api").RequireAuthorization();
+        
+        securedApi.MapGet("/roles", async ([FromServices] IRoleService service) =>
         {
             var roleDtos = await service.GetAllAsync();
             return Results.Ok(roleDtos);
         });
 
-        app.MapGet("/roles/{id}", async (short id, [FromServices] IRoleService service) =>
+        securedApi.MapGet("/roles/{id}", async (short id, [FromServices] IRoleService service) =>
         {
             if (id <= 0)
                 return Results.BadRequest("Invalid id provided.");
@@ -25,7 +27,7 @@ public static class RoleEndpoints
         })
         .WithName("GetRoleById");
 
-        app.MapPost("/roles", async ([FromBody] RoleSaveDto roleSaveDto, [FromServices] IRoleService service) =>
+        securedApi.MapPost("/roles", async ([FromBody] RoleSaveDto roleSaveDto, [FromServices] IRoleService service) =>
         {
             var validationResults = new List<ValidationResult>();
             var validationContext = new ValidationContext(roleSaveDto);
@@ -44,7 +46,7 @@ public static class RoleEndpoints
             }
         });
 
-        app.MapPut("/roles/{id}", async (short id, [FromBody] RoleSaveDto roleSaveDto, [FromServices] IRoleService service) =>
+        securedApi.MapPut("/roles/{id}", async (short id, [FromBody] RoleSaveDto roleSaveDto, [FromServices] IRoleService service) =>
         {
             if (id <= 0)
                 return Results.BadRequest("Invalid id provided.");
@@ -60,7 +62,7 @@ public static class RoleEndpoints
             }
         });
 
-        app.MapDelete("/roles/{id}", async (short id, [FromServices] IRoleService service) =>
+        securedApi.MapDelete("/roles/{id}", async (short id, [FromServices] IRoleService service) =>
         {
             if (id <= 0)
                 return Results.BadRequest("Invalid id provided.");
