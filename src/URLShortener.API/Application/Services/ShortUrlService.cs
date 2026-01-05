@@ -5,7 +5,7 @@ using URLShortener.API.DataTransferObjects;
 using URLShortener.API.Domain.Entities;
 using URLShortener.API.Persistence.Context;
 
-namespace URLShortener.API.Services;
+namespace URLShortener.API.Application.Services;
 
 public class ShortUrlService : IShortUrlService
 {

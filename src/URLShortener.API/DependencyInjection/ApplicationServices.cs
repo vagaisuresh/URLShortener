@@ -1,7 +1,6 @@
 using URLShortener.API.Application.Interfaces;
 using URLShortener.API.Application.Services;
 using URLShortener.API.Application.Utilities;
-using URLShortener.API.Services;
 
 namespace URLShortener.API.DependencyInjection;
 
@@ -14,5 +13,7 @@ public static class ApplicationServices
 
         services.AddScoped<IRoleService, RoleService>();
         services.AddScoped<IUserService, UserService>();
+
+        services.AddScoped<IAuthService, AuthService>();
     }
 }

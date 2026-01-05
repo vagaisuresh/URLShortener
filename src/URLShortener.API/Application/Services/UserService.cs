@@ -4,6 +4,7 @@ using URLShortener.API.DataTransferObjects;
 using URLShortener.API.Domain.Entities;
 using URLShortener.API.Persistence.Context;
 
+
 namespace URLShortener.API.Application.Services;
 
 public class UserService : IUserService
@@ -66,9 +67,9 @@ public class UserService : IUserService
         var user = new User
         {
             FullName = userRegisterDto.FullName,
-            EmailAddress = userRegisterDto.FullName,
-            PasswordHash = userRegisterDto.Password,
-            RoleId = Convert.ToInt16(3),                                         // Customer - directly assigned
+            EmailAddress = userRegisterDto.EmailAddress,
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(userRegisterDto.Password),    // One-way hashing (cannot be reversed)
+            RoleId = Convert.ToInt16(3),                                                // Customer - directly assigned
             MobileNumber = userRegisterDto.MobileNumber,
             DateOfBirth = userRegisterDto.DateOfBirth,
             ProfilePicture = userRegisterDto.ProfilePicture,
