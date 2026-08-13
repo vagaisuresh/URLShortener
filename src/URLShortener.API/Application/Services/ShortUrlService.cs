@@ -95,7 +95,7 @@ public class ShortUrlService : IShortUrlService
 
         existingShortUrl.LongUrl = shortUrlRequest.LongUrl;
         existingShortUrl.Description = shortUrlRequest.Description;
-        // Other fields to update
+        existingShortUrl.UpdatedAtDateTime = DateTime.UtcNow;
 
         _context.ShortUrls.Update(existingShortUrl);
         await _context.SaveChangesAsync();

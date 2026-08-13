@@ -16,5 +16,5 @@ public class User
     public bool IsActive { get; set; }
     public bool IsDeleted { get; set; }
     public short CreatedBy { get; set; }
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAtUtc { get; set; }
 }

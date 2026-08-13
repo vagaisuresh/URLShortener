@@ -21,15 +21,17 @@ public class RoleService : IRoleService
             .AsNoTracking()
             .ToListAsync();
         
-        var roleDtos = roles.Select(x => new RoleDto
+        /* var roleDtos = roles.Select(x => new RoleDto
         {
             Id = x.Id,
             Name = x.Name,
             Description = x.Description,
             IsActive = x.IsActive
-        }).ToList();
+        }).ToList(); */
 
-        return roleDtos;
+        //return roleDtos;
+
+        return roles.Select(x => x.ToDto()).ToList();
     }
 
     public async Task<RoleDto?> GetByIdAsync(short id)
@@ -41,13 +43,15 @@ public class RoleService : IRoleService
         if (role == null)
             return null;
         
-        return new RoleDto
+        /* return new RoleDto
         {
             Id = role.Id,
             Name = role.Name,
             Description = role.Description,
             IsActive = role.IsActive
-        };
+        }; */
+
+        return role.ToDto();
     }
 
     public async Task<RoleDto> CreateAsync(RoleSaveDto roleSaveDto)
@@ -58,24 +62,28 @@ public class RoleService : IRoleService
         // CREATE UNIQUE INDEX IX_Role_Name ON Role(Name);
         // This guarantees no duplicates, even if multiple services or apps write to the table.
         
-        var role = new Role
+        /* var role = new Role
         {
             Name = roleSaveDto.Name,
             Description = roleSaveDto.Description,
             IsActive = roleSaveDto.IsActive,
             IsDeleted = false
-        };
+        }; */
+
+        var role = roleSaveDto.ToEntity();
 
         await _context.Roles.AddAsync(role);
         await _context.SaveChangesAsync();
 
-        return new RoleDto
+        /* return new RoleDto
         {
             Id = role.Id,
             Name = role.Name,
             Description = role.Description,
             IsActive = role.IsActive
-        };
+        }; */
+
+        return role.ToDto();
     }
 
     public async Task<bool> UpdateAsync(short id, RoleSaveDto roleSaveDto)
@@ -94,6 +102,7 @@ public class RoleService : IRoleService
 
         _context.Roles.Update(existingRole);
         await _context.SaveChangesAsync();
+
         return true;
     }
 
@@ -106,6 +115,7 @@ public class RoleService : IRoleService
         
         _context.Roles.Remove(existingRole);
         await _context.SaveChangesAsync();
+        
         return true;
     }
 }

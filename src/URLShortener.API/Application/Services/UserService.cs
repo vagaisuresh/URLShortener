@@ -22,7 +22,7 @@ public class UserService : IUserService
             .AsNoTracking()
             .ToListAsync();
 
-        var userDtos = users.Select(x => new UserDto
+        /* var userDtos = users.Select(x => new UserDto
         {
             Id = x.Id,
             FullName = x.FullName,
@@ -32,9 +32,11 @@ public class UserService : IUserService
             DateOfBirth = x.DateOfBirth,
             ProfilePicture = x.ProfilePicture,
             IsActive = x.IsActive
-        }).ToList();
+        }).ToList(); */
 
-        return userDtos;
+        //return userDtos;
+
+        return users.Select(x => x.ToDto()).ToList();
     }
 
     public async Task<UserDto?> GetByIdAsync(int id)
@@ -46,7 +48,7 @@ public class UserService : IUserService
         if (user is null)
             return null;
         
-        return new UserDto
+        /* return new UserDto
         {
             Id = user.Id,
             FullName = user.FullName,
@@ -56,7 +58,9 @@ public class UserService : IUserService
             DateOfBirth = user.DateOfBirth,
             ProfilePicture = user.ProfilePicture,
             IsActive = user.IsActive
-        };
+        }; */
+
+        return user.ToDto();
     }
 
     public async Task<UserDto> CreateAsync(UserRegisterDto userRegisterDto)
@@ -76,13 +80,13 @@ public class UserService : IUserService
             IsActive = true,
             IsDeleted = false,
             CreatedBy = Convert.ToInt16(0),
-            CreatedAt = DateTime.UtcNow
+            CreatedAtUtc = DateTime.UtcNow
         };
 
         await _context.Users.AddAsync(user);
         await _context.SaveChangesAsync();
 
-        return new UserDto
+        /* return new UserDto
         {
             Id = user.Id,
             FullName = user.FullName,
@@ -92,7 +96,9 @@ public class UserService : IUserService
             DateOfBirth = user.DateOfBirth,
             ProfilePicture = user.ProfilePicture,
             IsActive = user.IsActive
-        };
+        }; */
+
+        return user.ToDto();
     }
 
     public async Task<bool> UpdateAsync(int id, UserUpdateDto userUpdateDto)
@@ -108,6 +114,7 @@ public class UserService : IUserService
 
         _context.Users.Update(exisingUser);
         await _context.SaveChangesAsync();
+
         return true;
     }
 
@@ -120,6 +127,7 @@ public class UserService : IUserService
         
         _context.Users.Remove(exisingUser);
         await _context.SaveChangesAsync();
+        
         return true;
     }
 }

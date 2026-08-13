@@ -24,5 +24,5 @@ public class ShortUrl
 
     public DateTime CreatedAtDateTime { get; set; } = DateTime.UtcNow;
 
-    public DateTime UpdatedAtDateTime { get; set; } = DateTime.UtcNow;
+    public DateTime? UpdatedAtDateTime { get; set; } //= DateTime.UtcNow;
 }
